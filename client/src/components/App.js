@@ -5,10 +5,12 @@ import {
   SimpleGrid,
   Container,
   Text,
+  useMediaQuery,
 } from "@chakra-ui/react";
+import "@fontsource/montserrat/700.css";
 import Header from "./Header";
-import YieldTable from "./YieldTable";
 import Card from "./Card";
+import YieldTableContainer from "./YieldTableContainer";
 
 // 2. Extend the theme to include custom colors, fonts, etc
 const colors = {
@@ -24,7 +26,22 @@ const config = {
   useSystemColorMode: false,
 };
 
-const theme = extendTheme({ colors, config });
+const breakpoints = {
+  sm: "320px",
+  md: "768px",
+  lg: "960px",
+  xl: "1200px",
+};
+
+const theme = extendTheme({
+  colors,
+  config,
+  breakpoints,
+  fonts: {
+    heading: "Montserrat, sans-serif",
+    body: "Montserrat, sans-serif",
+  },
+});
 
 const collectionData = [
   {
@@ -53,19 +70,22 @@ const collectionData = [
 ];
 
 function App() {
+  const [isMobile] = useMediaQuery("(max-width: 768px)");
   return (
     <ChakraProvider theme={theme}>
       <Header />
       <br />
-      <YieldTable />
+      <YieldTableContainer isMobile={isMobile} />
       <Container maxW="container.xl" align centerContent>
         <br />
 
-        <Text fontSize="4xl">Welcome to your cult. You are never leaving.</Text>
+        <Text fontSize={{ base: "2xl", md: "4xl" }} textAlign="center">
+          Welcome to your cult. You are never leaving.
+        </Text>
         <br />
-        <SimpleGrid columns={3} spacing={10}>
-          {collectionData.map((collection) => {
-            return <Card collection={collection} />;
+        <SimpleGrid columns={{ base: 1, lg: 3 }} spacing={10}>
+          {collectionData.map((collection, index) => {
+            return <Card key={index} collection={collection} />;
           })}
         </SimpleGrid>
       </Container>

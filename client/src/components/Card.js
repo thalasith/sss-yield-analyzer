@@ -2,7 +2,6 @@ import React from "react";
 import { Box, Center, Image, Flex, Spacer, Text } from "@chakra-ui/react";
 
 const Card = (props) => {
-  console.log(props);
   return (
     <Center>
       <Box p="5" maxW="320px" borderWidth="1px" h="100%">
@@ -24,7 +23,7 @@ const Card = (props) => {
             {props.collection.title}
           </Text>
           <Spacer />
-          <a target="_blank" href={props.collection.parasURL}>
+          <a target="_blank" rel="noreferrer" href={props.collection.parasURL}>
             <Image
               borderRadius="full"
               boxSize="25px"
