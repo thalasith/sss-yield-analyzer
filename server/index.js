@@ -2,7 +2,29 @@
 const express = require("express");
 const bodyParser = require("body-parser");
 const cors = require("cors");
-const axios = require("axios");
+const { Pool } = require("pg");
+const pgClient = new Pool({
+  user: process.env.PGUSER,
+  host: process.env.PGHOST,
+  database: process.env.PGDATABASE,
+  password: process.env.PGPASSWORD,
+  port: process.env.PGPORT,
+});
+
+pgClient.on("connect", (client) => {
+  client
+    .query(
+      `CREATE TABLE IF NOT EXISTS token_prices (
+        id SERIAL PRIMARY KEY,
+        price_date DATE, 
+        uto_price NUMERIC, 
+        near_price NUMERIC,
+        skellies_fp NUMERIC,
+        grimms_fp NUMERIC,
+        skullingham_fp NUMERIC)`
+    )
+    .catch((err) => console.error(err));
+});
 
 const app = express();
 app.use(cors());
@@ -13,62 +35,35 @@ app.get("/", (req, res) => {
   res.send("Hi there");
 });
 
-app.get("/testdata", async (req, res) => {
-  console.log("request made");
-  // const utoPrice = await axios.get(
-  //   "https://api.coingecko.com/api/v3/simple/price?ids=utopia-token&vs_currencies=usd"
-  // );
-  // const nearPrice = await axios.get(
-  //   "https://api.coingecko.com/api/v3/simple/price?ids=near&vs_currencies=usd"
-  // );
-  // const skelliesData = await axios.get(
-  //   "https://api-v2-mainnet.paras.id/collection-stats?collection_id=secretskelliessociety.near"
-  // );
-  // const grimmsData = await axios.get(
-  //   "https://api-v2-mainnet.paras.id/collection-stats?collection_id=grimms.secretskelliessociety.near"
-  // );
-  // const estatesData = await axios.get(
-  //   "https://api-v2-mainnet.paras.id/collection-stats?collection_id=estates.secretskelliessociety.near"
-  // );
+app.get("/data", async (req, res) => {
+  const token_prices = await pgClient.query(
+    "SELECT * FROM token_prices ORDER BY id DESC LIMIT 1;"
+  );
 
-  // const compiledData = {
-  //   utoPrice: utoPrice.data["utopia-token"].usd,
-  //   nearPrice: nearPrice.data["near"].usd,
-  //   data: [
-  //     {
-  //       title: "Secret Skellies",
-  //       utoReward: 10,
-  //       fp: (
-  //         skelliesData.data.data.results.floor_price / Math.pow(10, 24)
-  //       ).toFixed(2),
-  //     },
-  //     {
-  //       title: "Grimms Army",
-  //       utoReward: 6,
-  //       fp: (
-  //         grimmsData.data.data.results.floor_price / Math.pow(10, 24)
-  //       ).toFixed(2),
-  //     },
-  //     {
-  //       title: "Skullingham Estates",
-  //       utoReward: 12,
-  //       fp: (
-  //         estatesData.data.data.results.floor_price / Math.pow(10, 24)
-  //       ).toFixed(2),
-  //     },
-  //   ],
-  // };
+  const token_prices_rows = token_prices.rows[0];
 
-  const compiledData = {
-    utoPrice: 0.470834,
-    nearPrice: 12.79,
+  let compiledData = {
+    utoPrice: parseFloat(token_prices_rows.uto_price),
+    nearPrice: parseFloat(token_prices_rows.near_price),
     data: [
-      { title: "Secret Skellies", utoReward: 10, fp: "266.69" },
-      { title: "Grimms Army", utoReward: 6, fp: "160.00" },
-      { title: "Skullingham Estates", utoReward: 12, fp: "527.69" },
+      {
+        title: "Secret Skellies",
+        utoReward: 10,
+        fp: parseFloat(token_prices_rows.skellies_fp).toFixed(2),
+      },
+      {
+        title: "Skullingham Estates",
+        utoReward: 12,
+        fp: parseFloat(token_prices_rows.skullingham_fp).toFixed(2),
+      },
+      {
+        title: "Grimms Army",
+        utoReward: 6,
+        fp: parseFloat(token_prices_rows.grimms_fp).toFixed(2),
+      },
     ],
   };
-  console.log(compiledData);
+
   res.send(compiledData);
 });
 

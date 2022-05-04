@@ -18,13 +18,18 @@ const MobileYieldTable = (props) => {
               <Td>{item.title}</Td>
 
               <Td textAlign="center">
-                ${(item.fp * props.nearPrice).toFixed(2).toLocaleString()}
+                $
+                {(item.fp * props.nearPrice).toLocaleString(undefined, {
+                  minimumFractionDigits: 2,
+                  maximumFractionDigits: 2,
+                })}
               </Td>
               <Td textAlign="center">
                 {(
-                  (365 * item.utoReward * props.utoPrice) /
-                  (item.fp * props.nearPrice)
-                ).toFixed(4) * 100}
+                  ((365 * item.utoReward * props.utoPrice) /
+                    (item.fp * props.nearPrice)) *
+                  100
+                ).toFixed(2)}
                 %
               </Td>
             </Tr>

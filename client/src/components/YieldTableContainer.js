@@ -13,7 +13,7 @@ const YieldTableContainer = (props) => {
   const fetchDataHandler = useCallback(async () => {
     setIsLoading(true);
     try {
-      const response = await axios.get("/api/testdata");
+      const response = await axios.get("/api/data");
       setTableData(response.data.data);
       setUtoPrice(response.data.utoPrice);
       setNearprice(response.data.nearPrice);
@@ -29,15 +29,10 @@ const YieldTableContainer = (props) => {
 
   return (
     <Container maxW="container.xl" centerContent>
-      <Text fontSize={{ base: "2xl", md: "4xl" }} textAlign="center">
-        "The top of today is not the top of tomorrow." - Anon666
-      </Text>
       <br />
 
       {isLoading ? (
-        <Text fontSize={{ base: "2xl", md: "4xl" }} textAlign="center">
-          Loading...
-        </Text>
+        <Text fontSize={{ base: "2xl", md: "4xl" }}>Loading...</Text>
       ) : props.isMobile ? (
         <MobileYieldTable
           tableData={tableData}
@@ -45,7 +40,11 @@ const YieldTableContainer = (props) => {
           nearPrice={nearPrice}
         />
       ) : (
-        <YieldTable tableData={tableData} />
+        <YieldTable
+          tableData={tableData}
+          utoPrice={utoPrice}
+          nearPrice={nearPrice}
+        />
       )}
     </Container>
   );

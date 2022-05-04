@@ -17,8 +17,10 @@ const Card = (props) => {
           <Text
             ml={2}
             textTransform="uppercase"
-            fontSize="xl"
+            fontSize="md"
             fontWeight="bold"
+            as="i"
+            color="#ECD471"
           >
             {props.collection.title}
           </Text>
@@ -31,7 +33,7 @@ const Card = (props) => {
             />
           </a>
         </Flex>
-        <Text mt={2} fontSize="xl" fontWeight="semibold" lineHeight="short">
+        <Text mt={2} fontSize=",g" lineHeight="short">
           {props.collection.description}
         </Text>
       </Box>

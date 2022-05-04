@@ -2,12 +2,14 @@ version: "3"
 services:
   postgres:
     image: "postgres:latest"
+    restart: always
     environment:
       - POSTGRES_PASSWORD=postgres_password
   api:
     build:
-      dockerfile: Dockerfile.dev
+      dockerfile: Dockerfile
       context: ./server
+    restart: always
     volumes:
       - /app/node_modules
       - ./server:/app
@@ -19,8 +21,9 @@ services:
       - PGPORT=5432
   scheduler:
     build:
-      dockerfile: Dockerfile.dev
+      dockerfile: Dockerfile
       context: ./scheduler
+    restart: always
     volumes:
       - /app/node_modules
       - ./scheduler:/app
@@ -32,8 +35,9 @@ services:
       - PGPORT=5432
   client:
     build:
-      dockerfile: Dockerfile.dev
+      dockerfile: Dockerfile
       context: ./client
+    restart: always
     volumes:
       - /app/node_modules
       - ./client:/app
@@ -42,7 +46,7 @@ services:
   nginx:
     restart: always
     build:
-      dockerfile: Dockerfile.dev
+      dockerfile: Dockerfile
       context: ./nginx
     ports:
       - "3050:80"

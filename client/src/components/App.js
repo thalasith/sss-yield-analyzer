@@ -70,17 +70,23 @@ const collectionData = [
 ];
 
 function App() {
-  const [isMobile] = useMediaQuery("(max-width: 768px)");
+  const [isMobile] = useMediaQuery("(max-width: 900px)");
   return (
     <ChakraProvider theme={theme}>
       <Header />
       <br />
-      <YieldTableContainer isMobile={isMobile} />
       <Container maxW="container.xl" align centerContent>
-        <br />
-
         <Text fontSize={{ base: "2xl", md: "4xl" }} textAlign="center">
           Welcome to your cult. You are never leaving.
+        </Text>
+        <YieldTableContainer isMobile={isMobile} />
+        <br />
+        <Text fontSize={{ base: "xl", md: "2xl" }} textAlign="center" as="i">
+          "The top of today is not the top of tomorrow."
+        </Text>
+
+        <Text fontSize={{ base: "lg", md: "md" }} as="i">
+          Anon666
         </Text>
         <br />
         <SimpleGrid columns={{ base: 1, lg: 3 }} spacing={10}>
@@ -88,6 +94,15 @@ function App() {
             return <Card key={index} collection={collection} />;
           })}
         </SimpleGrid>
+        <br />
+        <Text fontSize={{ base: "lg", md: "xl" }} textAlign="center" as="i">
+          "As a team, we can achieve anything - don't let anyone tell you
+          otherwise."
+        </Text>
+
+        <Text fontSize={{ base: "lg", md: "md" }} as="i">
+          Anon666
+        </Text>
       </Container>
       <br />
     </ChakraProvider>

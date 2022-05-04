@@ -7,12 +7,12 @@ const YieldTable = (props) => {
       <Thead>
         <Tr>
           <Th>Collection</Th>
-          <Th textAlign="center">Floor</Th>
-          <Th textAlign="center">Floor</Th>
-          <Th textAlign="center">UTO Allocation</Th>
-          <Th textAlign="center">Allocation Value</Th>
-          <Th textAlign="center">Yearly ROI</Th>
-          <Th isNumeric>Breakeven Days</Th>
+          <Th textAlign="right">Floor (N)</Th>
+          <Th textAlign="right">Floor ($)</Th>
+          <Th textAlign="right">Token Allocation</Th>
+          <Th textAlign="right">Allocation Value ($)</Th>
+          <Th textAlign="right">Yearly ROI</Th>
+          <Th textAlign="right">Breakeven Days</Th>
         </Tr>
       </Thead>
       <Tbody>
@@ -20,26 +20,41 @@ const YieldTable = (props) => {
           return (
             <Tr key={index}>
               <Td>{item.title}</Td>
-              <Td textAlign="center">{item.fp} N</Td>
-              <Td textAlign="center">
-                ${(item.fp * props.nearPrice).toFixed(2).toLocaleString()}
+              <Td textAlign="right">{item.fp}N</Td>
+              <Td textAlign="right">
+                $
+                {(item.fp * props.nearPrice).toLocaleString(undefined, {
+                  minimumFractionDigits: 2,
+                  maximumFractionDigits: 2,
+                })}
               </Td>
-              <Td textAlign="center">{item.utoReward} UTO</Td>
-              <Td textAlign="center">
-                $ {(item.utoReward * props.utoPrice).toFixed(2)}
+              <Td textAlign="right">{item.utoReward} UTO</Td>
+              <Td textAlign="right">
+                $
+                {(item.utoReward * props.utoPrice).toLocaleString(undefined, {
+                  minimumFractionDigits: 2,
+                  maximumFractionDigits: 2,
+                })}
               </Td>
-              <Td textAlign="center">
+              <Td textAlign="right">
                 {(
-                  (365 * item.utoReward * props.utoPrice) /
-                  (item.fp * props.nearPrice)
-                ).toFixed(4) * 100}
+                  ((365 * item.utoReward * props.utoPrice) /
+                    (item.fp * props.nearPrice)) *
+                  100
+                ).toLocaleString(undefined, {
+                  minimumFractionDigits: 2,
+                  maximumFractionDigits: 2,
+                })}
                 %
               </Td>
-              <Td textAlign="center">
+              <Td textAlign="right">
                 {(
                   (item.fp * props.nearPrice) /
                   (item.utoReward * props.utoPrice)
-                ).toFixed(2)}
+                ).toLocaleString(undefined, {
+                  minimumFractionDigits: 2,
+                  maximumFractionDigits: 2,
+                })}
               </Td>
             </Tr>
           );
