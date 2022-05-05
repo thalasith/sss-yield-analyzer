@@ -2,8 +2,9 @@ import React from "react";
 import { Table, Thead, Tr, Th, Td, Tbody } from "@chakra-ui/react";
 
 const YieldTable = (props) => {
+  console.log("Hi there");
   return (
-    <Table variant="simple">
+    <Table variant="simple" colorScheme="whiteAlpha">
       <Thead>
         <Tr>
           <Th>Collection</Th>
@@ -48,13 +49,11 @@ const YieldTable = (props) => {
                 %
               </Td>
               <Td textAlign="right">
-                {(
+                {Math.round(
                   (item.fp * props.nearPrice) /
-                  (item.utoReward * props.utoPrice)
-                ).toLocaleString(undefined, {
-                  minimumFractionDigits: 2,
-                  maximumFractionDigits: 2,
-                })}
+                    (item.utoReward * props.utoPrice)
+                ).toLocaleString()}{" "}
+                days
               </Td>
             </Tr>
           );

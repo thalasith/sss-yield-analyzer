@@ -6,11 +6,13 @@ const Card = (props) => {
     <Center>
       <Box p="5" maxW="320px" borderWidth="1px" h="100%">
         <Center>
-          <Image
-            borderRadius="full"
-            boxSize="250px"
-            src={props.collection.photoURL}
-          />
+          <a target="_blank" rel="noreferrer" href={props.collection.parasURL}>
+            <Image
+              borderRadius="full"
+              boxSize="250px"
+              src={props.collection.photoURL}
+            />
+          </a>
         </Center>
         <br />
         <Flex>
@@ -22,14 +24,20 @@ const Card = (props) => {
             as="i"
             color="#ECD471"
           >
-            {props.collection.title}
+            <a
+              target="_blank"
+              rel="noreferrer"
+              href={props.collection.parasURL}
+            >
+              {props.collection.title}
+            </a>
           </Text>
           <Spacer />
           <a target="_blank" rel="noreferrer" href={props.collection.parasURL}>
             <Image
               borderRadius="full"
               boxSize="25px"
-              src="https://paras-cdn.imgix.net/QmRY9zZdr1aYDT7221VvWytnvUwMZqw27HTc6BTYvXVu4J?w=300&auto=format,compress"
+              src="https://pbs.twimg.com/profile_images/1321485779202236417/Rhlq_p3__400x400.png"
             />
           </a>
         </Flex>

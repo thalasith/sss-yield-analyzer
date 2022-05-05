@@ -3,6 +3,8 @@ services:
   postgres:
     image: "postgres:latest"
     restart: always
+    volumes:
+      - pgvol:/var/lib/postgresql/data
     environment:
       - POSTGRES_PASSWORD=postgres_password
   api:
@@ -50,3 +52,5 @@ services:
       context: ./nginx
     ports:
       - "80:80"
+volumes:
+  pgvol:
