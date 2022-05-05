@@ -73,7 +73,7 @@ services:
     command: certonly --webroot --webroot-path=/var/www/html --email boris.tsao@gmail.com --agree-tos --no-eff-email --staging -d skellieyieldanalyzer.com  -d www.skellieyieldanalyzer.com
 volumes:
   pgvol:
-    certbot-etc:
+  certbot-etc:
   certbot-var:
   web-root:
     driver: local
