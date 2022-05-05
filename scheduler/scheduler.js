@@ -24,8 +24,8 @@ pgClient.on("connect", (client) => {
     .catch((err) => console.error(err));
 });
 
-cron.schedule("*/5 * * * *", async () => {
-  console.log("running a task every five minutes");
+cron.schedule("*/15 * * * *", async () => {
+  console.log("running a task every 15 minutes");
   const utoPrice = await axios.get(
     "https://api.coingecko.com/api/v3/simple/price?ids=utopia-token&vs_currencies=usd"
   );

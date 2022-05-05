@@ -20,7 +20,7 @@ const Header = (props) => {
       align="center"
       justify="space-between"
       wrap="wrap"
-      padding={1}
+      padding={{ base: 6, md: 2 }}
       bg="black"
       color="white"
       {...props}
@@ -46,9 +46,10 @@ const Header = (props) => {
         alignItems="center"
         flexGrow={{ base: 1, md: 0 }}
         mt={{ base: 4, md: 0 }}
+        spacing="20px"
       >
         <a target="_blank" rel="noreferrer" href="https://skellieverse.com/">
-          <Box mb="5px">
+          <Box mb="10px">
             <Button variant="outline" _hover={{ bg: "white", color: "black" }}>
               Skellieverse
             </Button>
@@ -59,7 +60,7 @@ const Header = (props) => {
           rel="noreferrer"
           href="https://twitter.com/SecretSkellies"
         >
-          <Box>
+          <Box mb="10px">
             <Button variant="outline" _hover={{ bg: "white", color: "black" }}>
               Twitter
             </Button>
@@ -70,7 +71,7 @@ const Header = (props) => {
           rel="noreferrer"
           href="https://discord.gg/a7CMSq56QM"
         >
-          <Box>
+          <Box mb="10px">
             <Button variant="outline" _hover={{ bg: "white", color: "black" }}>
               Discord
             </Button>
