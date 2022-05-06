@@ -67,6 +67,14 @@ const collectionData = [
       "https://paras-cdn.imgix.net/bafkreicul7dbezxekorx5ln7jrvrl7ibejghjqa6cdwru2ii62ryp56zde?w=800&auto=format,compress",
     parasURL: "https://paras.id/collection/grimms.secretskelliessociety.near",
   },
+  {
+    title: "Undead Army",
+    description:
+      "An army of 4,420 undead minions looking to take their place in Utopia",
+    photoURL:
+      "https://media.discordapp.net/attachments/966337505743994910/966619938741682176/Gen_3_Skellies_1.png",
+    parasURL: "",
+  },
 ];
 
 function App() {
@@ -89,7 +97,7 @@ function App() {
           Anon666
         </Text>
         <br />
-        <SimpleGrid columns={{ base: 1, lg: 3 }} spacing={10}>
+        <SimpleGrid columns={{ base: 1, lg: 4 }} spacing={10}>
           {collectionData.map((collection, index) => {
             return <Card key={index} collection={collection} />;
           })}
