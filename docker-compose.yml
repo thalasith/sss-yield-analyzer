@@ -15,8 +15,6 @@ services:
     volumes:
       - /app/node_modules
       - ./server:/app
-    networks:
-      - app-network
     environment:
       - PGUSER=postgres
       - PGHOST=postgres
@@ -47,8 +45,6 @@ services:
       - ./client:/app
     environment:
       - WDS_SOCKET_PORT=0
-    networks:
-      - app-network
   nginx:
     restart: always
     build:
@@ -61,28 +57,5 @@ services:
       - app-network
     ports:
       - "80:80"
-  certbot:
-    image: certbot/certbot
-    container_name: certbot
-    volumes:
-      - certbot-etc:/etc/letsencrypt
-      - certbot-var:/var/lib/letsencrypt
-      - web-root:/var/www/html
-    depends_on:
-      - client
-      - api
-    command: certonly --webroot --webroot-path=/var/www/html --email boris.tsao@gmail.com --agree-tos --no-eff-email --staging -d skellieyieldanalyzer.com  -d www.skellieyieldanalyzer.com
 volumes:
   pgvol:
-  certbot-etc:
-  certbot-var:
-  web-root:
-    driver: local
-    driver_opts:
-      type: none
-      device: /home/thalasith/sss-yield-analyzer/views/
-      o: bind
-
-networks:
-  app-network:
-    driver: bridge
