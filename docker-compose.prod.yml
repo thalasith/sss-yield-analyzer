@@ -69,7 +69,8 @@ services:
       - certbot-var:/var/lib/letsencrypt
       - web-root:/var/www/html
     depends_on:
-      - webserver
+      - client
+      - api
     command: certonly --webroot --webroot-path=/var/www/html --email boris.tsao@gmail.com --agree-tos --no-eff-email --staging -d skellieyieldanalyzer.com  -d www.skellieyieldanalyzer.com
 volumes:
   pgvol:
