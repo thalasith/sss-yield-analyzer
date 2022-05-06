@@ -14,7 +14,8 @@ const YieldTableContainer = (props) => {
     setIsLoading(true);
     try {
       const response = await axios.get("/api/data");
-      setTableData(response.data.data);
+      const undeadData = { title: "Undead Army", utoReward: 1, fp: "4.2" };
+      const tableData = setTableData([...response.data.data, undeadData]);
       setUtoPrice(response.data.utoPrice);
       setNearprice(response.data.nearPrice);
     } catch (error) {
@@ -22,7 +23,6 @@ const YieldTableContainer = (props) => {
     }
     setIsLoading(false);
   }, []);
-
   useEffect(() => {
     fetchDataHandler();
   }, [fetchDataHandler]);
