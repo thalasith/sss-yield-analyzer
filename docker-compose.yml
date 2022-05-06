@@ -53,8 +53,6 @@ services:
     depends_on:
       - client
       - api
-    networks:
-      - app-network
     ports:
       - "80:80"
 volumes:
